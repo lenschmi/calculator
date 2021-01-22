@@ -65,7 +65,7 @@ function runComputation(){
             screenInput.textContent = intResult;
         } else{
             let numDecimals = 15-intResultLength;
-            screenInput.textContent = result.toFixed(numDecimals).toString();
+            screenInput.textContent = (+result.toFixed(numDecimals)).toString();
         }
 
         //Update operand and input
