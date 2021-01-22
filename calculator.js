@@ -37,11 +37,12 @@ function runComputation(){
     screenInput.textContent = result;
     if (operandTwo === "="){
         operandOne = "";
+        inputOne = "";
     } else{
         operandOne = operandTwo;
+        inputOne = result;
     }
     operandTwo = "";
-    inputOne = "";
     inputTwo = "";
 }
 
@@ -82,15 +83,16 @@ function addDecimalPoint(e){
 const negButton = document.querySelector("button#neg");
 negButton.addEventListener("click", makeNegative);
 function makeNegative(e){
-    if (operandOne === ""){
-        if (inputOne === "" && result !== ""){
+    if (operandOne === "" && inputOne != ""){
+        /*if (inputOne === "" && result !== ""){
             inputOne = result;
             inputOne = inputOne*-1 + "";
             screenInput.textContent = inputOne;
         } else if (inputOne != ""){
             inputOne = inputOne*-1 + "";
-            screenInput.textContent = inputOne;
-        }
+        }*/
+        inputOne = inputOne*-1 + "";
+        screenInput.textContent = inputOne;
     } else if (inputTwo !== ""){
         inputTwo = inputTwo*-1 + "";
         screenInput.textContent = inputTwo;
@@ -139,6 +141,7 @@ function getOperation(e){
 const backButton = document.querySelector("button#undo");
 backButton.addEventListener("click", undoEntry);
 function undoEntry(e){
+    //Cannot undo after an operation has been completed.
 
 }
 
@@ -166,10 +169,16 @@ function clearScreen(e){
 }
 
 //Set-up keyboard event listeners
-//(+/-)  and Cl the only button do not have keyboard support
+//(+/-)  and Cl buttons do not have keyboard support
+window.addEventListener("keydown", function(e){
+    const key = document.querySelector(`button[data-key="${e.key}"]`);
+    if (!key) return;
+    console.log(key.textContent);
+});
 
 
 //TODO:
 //Deal with long numbers so that they don't overflow the screen - can't go over 16 characters
 //Undo button not implemented
-//Keyboard support
+//Keyboard support for all buttons except clear and (+/-)
+//Keyboard should only work when the screen has been selected
