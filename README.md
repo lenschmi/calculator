@@ -5,7 +5,7 @@ This project was meant to provide further practice with basic JavaScript includi
 
 **Project Notes:**
 - The calculator is implemented so that only one operation is performed at a time as described in point 6-1 of the project description.
-- The calcultor will not accept inappropriate inputs including more than one decimal point in a number and an operation at an inappropriate time. For instance if the user clicked "4" then "+" then "x" then "6" the calculator would ignore the "x" click and return "10".
+- The calculator will not accept inappropriate inputs including more than one decimal point in a number and an operation at an inappropriate time. For instance if the user clicked "4" then "+" then "x" then "6" the calculator would ignore the "x" click and return "10".
 - I added a (+/-) button that multiplies the current number being entered by -1 allowing the user to enter negative numbers. Note that one has to start entering the number before this button will take effect. I'm not totally happy with this implementation since it feel slike it could be a bit unintuitive.
 - Some notes of number limitations:
   - The calculator only works with values within Number.MAX_SAFE_INTEGER as my understanding is that JS can only safely represent integers within this value. 
