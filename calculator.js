@@ -33,38 +33,71 @@ let operandTwo = "";
 const screenInput = document.querySelector("div#screen");
 
 function runComputation(){
-    result = operate(operandOne, inputOne, inputTwo);
-    screenInput.textContent = result;
-    if (operandTwo === "="){
-        operandOne = "";
+    //The calculator will allow you to enter numbers greater than Number.MAX_SAFE_INTEGER, but will not operate on them
+    //Setting the max number here to allow for older browsers that do not support Number.MAX_SAFE_INTEGER
+    const MAX_NUMBER = 9007199254740991;
+
+    //If either inputOne or inputTwo is outside of the allowed range display NaN and clear all inputs, operands and result
+    if (Math.abs(inputOne) > MAX_NUMBER || Math.abs(inputTwo) > MAX_NUMBER){
+        screenInput.textContent = "NaN";
         inputOne = "";
+        inputTwo = "";
+        operandOne = "";
+        operandTwo = "";
+        result = "";
     } else{
-        operandOne = operandTwo;
-        inputOne = result;
+        //Calculate the result and display NaN if it is too large
+        result = operate(operandOne, inputOne, inputTwo);
+        if (Math.abs(result) > MAX_NUMBER){
+            screenInput.textContent = "NaN";
+            inputOne = "";
+            inputTwo = "";
+            operandOne = "";
+            operandTwo = "";
+            result = "";
+            return;
+        }
+
+        //Display the result in 16 or less characters
+        let intResult = Math.trunc(result);
+        let intResultLength = intResult.toString().length;
+        if(intResultLength >= 15 || intResult === result){
+            screenInput.textContent = intResult;
+        } else{
+            let numDecimals = 15-intResultLength;
+            screenInput.textContent = result.toFixed(numDecimals);
+        }
+
+        //Update operand and input values
+        if (operandTwo === "="){
+            operandOne = "";
+            inputOne = "";
+        } else{
+            operandOne = operandTwo;
+            inputOne = result;
+        }
+        operandTwo = "";
+        inputTwo = "";
     }
-    operandTwo = "";
-    inputTwo = "";
-}
-
-function displayNumber(numToDisplay){
-    //Display a number in up to 16 digits
-    //The calculator will not work with numbers greater than JS's MAX_SAFE_INTEGER
-    
-
 }
 
 //Set-up event listeners for numerical buttons
 const numButtons = document.querySelectorAll("button.num-button");
 numButtons.forEach(button => button.addEventListener("click", getNumber));
 function getNumber(e){
+    //The calculator will not let you enter a number that is more than 16 digits
     let num = e.target.id;
     if (operandOne === ""){
-        inputOne+=num;
-        screenInput.textContent = inputOne;
+        if (inputOne.length <= 15){
+            inputOne+=num;
+            screenInput.textContent = inputOne;
+        }
     } else{
         if (inputOne === "") {inputOne = result};
-        inputTwo+=num;
-        screenInput.textContent = inputTwo;
+        if (inputTwo.length <= 15){
+            inputTwo+=num;
+            screenInput.textContent = inputTwo;
+        }
     }
 }
 
@@ -73,12 +106,12 @@ const decButton = document.querySelector("button#decimal");
 decButton.addEventListener("click", addDecimalPoint);
 function addDecimalPoint(e){
     if (operandOne === ""){
-        if (!inputOne.includes(".")){
+        if (!inputOne.includes(".") && inputOne.length <= 15){
             inputOne+=".";
             screenInput.textContent = inputOne;
         } 
     } else{
-        if (!inputTwo.includes(".")){
+        if (!inputTwo.includes(".") && inputTwo.length <= 15){
             inputTwo+=".";
             screenInput.textContent = inputTwo;
         }  
@@ -180,5 +213,4 @@ window.addEventListener("keydown", function(e){
 
 
 //TODO:
-//Deal with long numbers so that they don't overflow the screen - can't go over 16 characters
 //Undo button not implemented
