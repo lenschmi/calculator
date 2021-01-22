@@ -15,4 +15,4 @@ This project was meant to provide further practice with basic JavaScript includi
   - The calculator will also return NaN if the result is outside the given range. 
   - My understanding is that a BigInt should be used to represent numbers greater than Number.MAX_SAFE_INTEGER but that it will truncate numbers so will not work in this case. It does look like there are libraries that could be used to safely work with larger numbers.
 - Keyboard support is included for all buttons except the Clear and (+/-) buttons. The Enter button is used to perform an Equals operation.
-- The Undo button is currently not implemented.
+- The Undo button is not implemented. I would likely implement using a stack of past operations.
