@@ -65,10 +65,10 @@ function runComputation(){
             screenInput.textContent = intResult;
         } else{
             let numDecimals = 15-intResultLength;
-            screenInput.textContent = result.toFixed(numDecimals);
+            screenInput.textContent = +result.toFixed(numDecimals);
         }
 
-        //Update operand and input values
+        //Update operand and input
         if (operandTwo === "="){
             operandOne = "";
             inputOne = "";
