@@ -1,6 +1,9 @@
 # calculator
-Calculator project for the Odin Project's Foundations path.
-The project description can be found [HERE](https://www.theodinproject.com/courses/foundations/lessons/calculator).
+[Calculator project](https://www.theodinproject.com/courses/foundations/lessons/calculator) for the Odin Project's Foundations path. View [demo](https://lenschmi.github.io/calculator/).
+![Calc_demo](https://user-images.githubusercontent.com/61850952/140662928-e91f1786-a347-40bf-8373-0e79cd0d1ef7.png)
+
+
+
 This project was meant to provide further practice with basic JavaScript including working with event listeners and manipulating the DOM.
 
 **Project Notes:**
